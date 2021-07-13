@@ -65,9 +65,23 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
                    labels=c("HCD total",
                             "HCD mammary",
                             "Seralini"))+
-  geom_text(aes(x=3.27, y=0.302, label="Control"), size=4.5)+
-  geom_text(aes(x=3.27, y=0.502, label="Treat. min"), alpha=0.05, size=4.5)+
-  geom_text(aes(x=3.27, y=0.802, label="Treat. max"), alpha=0.05, size=4.5)
+  geom_text(aes(x=3.27, y=0.302, label="Control"), 
+            size=4.5)+
+  geom_text(aes(x=3.27, y=0.502, label="Treat. min"),
+            size=4.5)+
+  geom_text(aes(x=3.27, y=0.802, label="Treat. max"), 
+            size=4.5)+
+  
+  theme(axis.text.x = element_text(face="bold", 
+                                   size=14),
+        axis.text.y = element_text(face="bold",
+                                   size=14),
+        axis.title.x = element_text(size=14, 
+                                    face="bold"),
+        axis.title.y = element_text(size=14, 
+                                    face="bold"),
+        legend.title = element_text(size=10, 
+                                    face="bold"))
 
 ggsave("HCD_Seralini.png", width=26, height=18, units="cm")
 
@@ -180,9 +194,24 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
                    labels=c("HCD total",
                             "HCD mammary",
                             "Seralini"))+
-  geom_text(aes(x=3.27, y=0.302, label="Control"), size=4.5)+
-  geom_text(aes(x=3.27, y=0.502, label="Treat. min"), alpha=0.05, size=4.5)+
-  geom_text(aes(x=3.27, y=0.802, label="Treat. max"), alpha=0.05, size=4.5)
+  geom_text(aes(x=3.27, y=0.302, label="Control"),
+            size=4.5)+
+  geom_text(aes(x=3.27, y=0.502, label="Treat. min"), 
+            size=4.5)+
+  geom_text(aes(x=3.27, y=0.802, label="Treat. max"), 
+            size=4.5)+
+  
+  
+  theme(axis.text.x = element_text(face="bold", 
+                                   size=14),
+        axis.text.y = element_text(face="bold",
+                                   size=14),
+        axis.title.x = element_text(size=14, 
+                                    face="bold"),
+        axis.title.y = element_text(size=14, 
+                                    face="bold"),
+        legend.title = element_text(size=10, 
+                                    face="bold"))
 
 
 # Beta binomial PI: Solid line
