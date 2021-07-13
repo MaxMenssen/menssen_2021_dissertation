@@ -47,7 +47,7 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
   
   geom_point(data=filter(hcd,
                          Source_Type=="HCD:p_total" | Source_Type=="HCD:p_mammary"),
-             aes(color=factor(Total)), size=2,
+             aes(color=factor(Total)), size=3,
              position=position_jitter(height=0, width=0.1))+
   
   geom_point(data=filter(hcd,
