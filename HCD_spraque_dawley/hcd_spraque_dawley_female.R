@@ -57,7 +57,8 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
   ylab("Tumor rate (y/n)")+
   xlab("")+
   
-  scale_colour_discrete(name  ="Numbers of rats\nper group (n)")+
+  scale_color_manual(values=c("#7CAE00", "#E69F00", "#56B4E9"),
+                     name  ="Cluster size")+
   scale_x_discrete(name ="", 
                    limits=c("HCD:p_total",
                             "HCD:p_mammary", 
@@ -105,7 +106,7 @@ total <- total[1:9,]
 
 # Quasibinomial assumption
 qb_pi_total <- quasi_bin_pi(histdat=total, 
-                            newsize=c(10, 10, 10))
+                            newsize=rep(10,10))
 
 
 qb_pi_total$lower_pi <- qb_pi_total$lower/10
@@ -114,7 +115,7 @@ qb_pi_total
 
 # Betabinomial assumption
 bb_pi_total <- beta_bin_pi(histdat=total, 
-                           newsize=c(10, 10, 10))
+                           newsize=rep(10,10))
 
 bb_pi_total$lower_pi <- bb_pi_total$lower/10
 bb_pi_total$upper_pi <- bb_pi_total$upper/10
@@ -132,7 +133,7 @@ FFCA <- FFCA[1:9,]
 
 # Quasibinomial assumption
 qb_pi_FFCA <- quasi_bin_pi(histdat=FFCA, 
-                           newsize=c(10, 10, 10))
+                           newsize=rep(10,10))
 
 
 qb_pi_FFCA$lower_pi <- qb_pi_FFCA$lower/10
@@ -141,7 +142,7 @@ qb_pi_FFCA$Source_Type <- "HCD:p_mammary"
 
 # Betabinomial assumption
 bb_pi_FFCA <- beta_bin_pi(histdat=FFCA, 
-                          newsize=c(10, 10, 10))
+                          newsize=rep(10,10))
 
 bb_pi_FFCA$lower_pi <- bb_pi_FFCA$lower/10
 bb_pi_FFCA$upper_pi <- bb_pi_FFCA$upper/10
@@ -151,7 +152,7 @@ bb_pi_FFCA$Source_Type <- "HCD:p_mammary"
 
 
 
-ggplot(hcd, aes(x=Source_Type , y=Proportion)) + 
+gg_pi_10 <- ggplot(hcd, aes(x=Source_Type , y=Proportion)) + 
   
   theme_bw()+
   
@@ -182,11 +183,13 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
   
   
   
-  ylab("Tumor rate (y/n)")+
+  ylab("")+
   xlab("")+
   
   ylim(c(0,1))+
-  scale_colour_discrete(name  ="Numbers of rats\nper group (n)")+
+  scale_color_manual(values=c("#7CAE00", "#E69F00", "#56B4E9"),
+                     name  ="Cluster size")+
+  
   scale_x_discrete(name ="", 
                    limits=c("HCD:p_total",
                             "HCD:p_mammary", 
@@ -194,31 +197,158 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
                    labels=c("HCD total",
                             "HCD mammary",
                             "Seralini"))+
-  geom_text(aes(x=3.27, y=0.302, label="Control"),
-            size=4.5)+
-  geom_text(aes(x=3.27, y=0.502, label="Treat. min"), 
-            size=4.5)+
-  geom_text(aes(x=3.27, y=0.802, label="Treat. max"), 
-            size=4.5)+
+  geom_text(aes(x=3.27, y=0.302, 
+                label="Control", ),
+            size=3.5)+
+  geom_text(aes(x=3.27, y=0.502, 
+                label="Treat. min"), 
+            size=3.5)+
+  geom_text(aes(x=3.27, y=0.802, 
+                label="Treat. max"), 
+            size=3.5)+
   
+  ggtitle("B: PI for future cluster size 10")+
   
   theme(axis.text.x = element_text(face="bold", 
-                                   size=14),
+                                   size=12),
         axis.text.y = element_text(face="bold",
-                                   size=14),
-        axis.title.x = element_text(size=14, 
+                                   size=12),
+        axis.title.x = element_text(size=12, 
                                     face="bold"),
-        axis.title.y = element_text(size=14, 
+        axis.title.y = element_text(size=12, 
                                     face="bold"),
         legend.title = element_text(size=10, 
-                                    face="bold"))
+                                    face="bold"),
+        plot.title = element_text(size=12, 
+                                  face="bold"))
+
+
 
 
 # Beta binomial PI: Solid line
 # Quasi binomial PI: Dashed line
+gg_pi_10
 ggsave("HCD_Seralini_prediction_intervals_m3.png", width=26, height=18, units="cm")
 
 
+
+#-------------------------------------------------------------------------------
+#------------------------ PI for n_fut=50 --------------------------------------
+#-------------------------------------------------------------------------------
+
+# total numbers of tumors
+
+# Quasibinomial assumption
+qb_pi_total_50 <- quasi_bin_pi(histdat=total, 
+                               newsize=rep(50,10))
+
+
+qb_pi_total_50$lower_pi <- qb_pi_total_50$lower/50
+qb_pi_total_50$upper_pi <- qb_pi_total_50$upper/50
+qb_pi_total_50
+
+# Betabinomial assumption
+bb_pi_total_50 <- beta_bin_pi(histdat=total, 
+                              newsize=rep(50,10))
+
+bb_pi_total_50$lower_pi <- bb_pi_total_50$lower/50
+bb_pi_total_50$upper_pi <- bb_pi_total_50$upper/50
+bb_pi_total_50$Source_Type <- "HCD:p_total"
+
+
+
+
+#-------------------------------------------------------------------------------
+# mammary gland
+
+# Quasibinomial assumption
+qb_pi_FFCA_50 <- quasi_bin_pi(histdat=FFCA, 
+                              newsize=rep(50,10))
+
+
+qb_pi_FFCA_50$lower_pi <- qb_pi_FFCA_50$lower/50
+qb_pi_FFCA_50$upper_pi <- qb_pi_FFCA_50$upper/50
+qb_pi_FFCA_50$Source_Type <- "HCD:p_mammary"
+
+# Betabinomial assumption
+bb_pi_FFCA_50 <- beta_bin_pi(histdat=FFCA, 
+                             newsize=rep(50,10))
+
+bb_pi_FFCA_50$lower_pi <- bb_pi_FFCA_50$lower/50
+bb_pi_FFCA_50$upper_pi <- bb_pi_FFCA_50$upper/50
+bb_pi_FFCA_50$Source_Type <- "HCD:p_mammary"
+
+
+
+#-------------------------------------------------------------------------------
+
+gg_pi_50 <- ggplot(hcd, aes(x=Source_Type , y=Proportion)) + 
+  
+  theme_bw()+
+  
+  geom_linerange(aes(x=1.1,
+                     ymin=qb_pi_total_50$lower_pi[1],
+                     ymax=qb_pi_total_50$upper_pi[1]),
+                 lty="dashed")+
+  geom_linerange(aes(x=0.9,
+                     ymin=bb_pi_total_50$lower_pi[1],
+                     ymax=bb_pi_total_50$upper_pi[1]))+
+  
+  geom_linerange(aes(x=2.1,
+                     ymin=qb_pi_FFCA_50$lower_pi[1],
+                     ymax=qb_pi_FFCA_50$upper_pi[1]),
+                 lty="dashed")+
+  geom_linerange(aes(x=1.9,
+                     ymin=bb_pi_FFCA_50$lower_pi[1],
+                     ymax=bb_pi_FFCA_50$upper_pi[1]))+
+  
+  geom_point(data=filter(hcd,
+                         Source_Type=="HCD:p_total" | Source_Type=="HCD:p_mammary"),
+             aes(color=factor(Total)), size=3,
+             position=position_jitter(height=0, width=0.1))+
+  
+  ylab("Tumor rate (y/n)")+
+  xlab("")+
+  
+  ylim(c(0,1))+
+  scale_color_manual(values=c("#E69F00", "#56B4E9"),
+                     name  ="Cluster size")+
+  scale_x_discrete(name ="", 
+                   limits=c("HCD:p_total",
+                            "HCD:p_mammary"),
+                   labels=c("HCD total",
+                            "HCD mammary"))+
+  
+  ggtitle("B: PI for future cluster size 50")+
+  
+  theme(axis.text.x = element_text(face="bold", 
+                                   size=12),
+        axis.text.y = element_text(face="bold",
+                                   size=12),
+        axis.title.x = element_text(size=12, 
+                                    face="bold"),
+        axis.title.y = element_text(size=12, 
+                                    face="bold"),
+        legend.title = element_text(size=10, 
+                                    face="bold"),
+        plot.title = element_text(size=12, 
+                                  face="bold"))
+
+
+
+gg_pi_50 
+
+#-------------------------------------------------------------------------------
+
+library(ggpubr)
+
+ggarrange(gg_pi_50, gg_pi_10,
+          align = "h",
+          widths = c(1.8, 3),
+          common.legend = TRUE,
+          legend="right")
+
+ggsave("HCD_Seralini_prediction_intervals.png", width=26, height=18, units="cm")
 
 
 
