@@ -387,6 +387,7 @@ qb_pi_FFCA_50$upper_pi <- qb_pi_FFCA_50$upper/50
 qb_pi_FFCA_50$Source_Type <- "HCD:p_mammary"
 qb_pi_FFCA_50
 
+
 #    total hist_prob quant_calib  pred_se    lower   upper  lower_pi upper_pi   Source_Type
 # 1     50 0.6408163    1.297773 11.27676 17.40613 46.6755 0.3481227  0.93351 HCD:p_mammary
 # 2     50 0.6408163    1.297773 11.27676 17.40613 46.6755 0.3481227  0.93351 HCD:p_mammary
