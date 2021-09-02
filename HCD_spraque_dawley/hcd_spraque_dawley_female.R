@@ -55,7 +55,7 @@ ggplot(hcd, aes(x=Source_Type , y=Proportion)) +
   xlab("")+
   
   scale_color_manual(values=c("#7CAE00", "#E69F00", "#56B4E9"),
-                     name  ="Cluster size")+
+                     name  ="Cluster size (n)")+
   scale_x_discrete(name ="", 
                    limits=c("HCD:p_total",
                             "HCD:p_mammary", 
