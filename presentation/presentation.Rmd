@@ -12,6 +12,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
 ```
 
 ## Contents
@@ -54,9 +55,100 @@ Further research
 \center{Introduction}
 
 ## Motivating example
-
+Bla bla bla
 
 ## Definition of bioassays
+
+
+```{r echo=FALSE, message=FALSE, fig.height=3, cache=TRUE}
+h <- "h=1"
+treat <- c("contr.", "dose 1", "dose 2", "dose 3")
+fill <- c("#3366CC", "#FF9933", "#FF9933", "#FF9933")
+
+dat <- data.frame(h=h,
+                  treat=treat, 
+                  fill=fill)
+
+ggplot(dat, aes(x=treat, 
+                y=factor(h)))+
+  theme_bw()+
+  geom_tile(fill=fill,
+            size=3,
+            color="black")+
+  geom_text(aes(label=treat), size=10)+
+  # facet_grid(h~.)+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+  
+
+
+```
+
+
+## Historical control data
+
+```{r, message=FALSE, fig.height=3, cache=TRUE}
+h <- c(rep("h=1", 4),
+       rep("h=2", 4),
+       rep("h=3", 4),
+       rep("h=4", 4),
+       rep("h=5", 4))
+y="1"
+treat <- rep(c("contr.", "dose 1", "dose 2", "dose 3"), 5)
+fill <- c("#3366CC", "#FF9933", "#FF9933", "#FF9933",
+          "#3366CC", "#CC6600", "#CC6600", "#CC6600",
+          "#3366CC", "#CC9966", "#CC9966", "#CC9966",
+          "#3366CC", "#CC9933", "#CC9933", "#CC9933",
+          "#3366CC", "#FFCC66", "#FFCC66", "#FFCC66")
+
+dat_hist <- data.frame(h=h,
+                  treat=treat, 
+                  fill=fill)
+
+ggplot(dat_hist, aes(x=treat, 
+                y=y))+
+  theme_bw()+
+  geom_tile(fill=fill,
+            size=3,
+            color="black")+
+  geom_text(aes(label=treat), size=5)+
+  facet_grid(h~.,
+             switch="both")+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        
+        strip.text.y = element_text(size = 15, 
+                                    face = "bold"),
+        strip.text.y.left = element_text(angle = 0))
+  
+
+```
+
+
+
+
+## 
+
+\center{Methods}
+
+## Overdispersed binomial data
+
+Binomial
+$$ var(y_i)= n_i \pi (1 - \pi) $$
+Quasi-Binomial
+$$ var(y_i)= \phi n_i \pi (1-\pi)$$
+
+Beta-Binomial
+$$ var(y_i)= n_i \pi (1 - \pi) [1+ (n_i-1)\rho]$$
 
 
 
